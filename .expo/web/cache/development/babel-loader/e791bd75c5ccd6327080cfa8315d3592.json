@@ -1,0 +1,1 @@
+{"ast":null,"code":"export default {\n  api: \"http://localhost/FlowerShop\"\n};","map":{"version":3,"sources":["H:/HK4/Android/ReactNative/Fleur/api/config.js"],"names":["api"],"mappings":"AAAA,eAAe;AACbA,EAAAA,GAAG,EAAE;AADQ,CAAf","sourcesContent":["export default {\r\n  api: \"http://localhost/FlowerShop\",\r\n};\r\n"]},"metadata":{},"sourceType":"module"}
