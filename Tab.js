@@ -3,38 +3,41 @@ import PropTypes from "prop-types";
 import { Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { Iconc } from 'react-native-elements';
 import Product from "./screens/product";
-import Cart from "./screens/cart";
+import Cart from "./screens/cart/Cart";
 import RootProduct from "./screens/product/RootProduct";
-import Login from "./screens/login";
+import RootAuth from "./screens/login/RootAuth";
+
 const Tab = createBottomTabNavigator();
 function TabNav(props) {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeTintColor: "#0000ff",
+        activeTintColor: "#38c930",
+        inactiveTintColor: "#78c930",
+        backgroundColor:"#969696",
       }}
     >
      
       <Tab.Screen
-        name="Trang chủ"
+        name="Home"
         component={RootProduct}
         options={{
-          tabBarLabel: "Trang chủ",
+          tabBarLabel: "",
           tabBarIcon: ({ tintColor }) => {
             return (
-              <MaterialCommunityIcons name="home" color={tintColor} size={18} />
+              <MaterialCommunityIcons name="home" color={tintColor} size={25} />
             );
           },
         }}
       />
       <Tab.Screen
         options={{
-          tabBarLabel: "Giỏ hàng",
+          tabBarLabel: "",
           tabBarIcon: ({ tintColor }) => {
             return (
-              <MaterialCommunityIcons name="book" color={tintColor} size={18} />
+              <MaterialCommunityIcons name="book" color={tintColor} size={25} />
             );
           },
         }}
@@ -43,15 +46,15 @@ function TabNav(props) {
       />
        <Tab.Screen
         options={{
-          tabBarLabel: "Tài khoản",
+          tabBarLabel: "",
           tabBarIcon: ({ tintColor }) => {
             return (
-              <MaterialCommunityIcons name="book" color={tintColor} size={18} />
+              <MaterialCommunityIcons name="account" color={tintColor} size={25} />
             );
           },
         }}
         name="User"
-        component={Login}
+        component={RootAuth}
       />
     </Tab.Navigator>
   );
