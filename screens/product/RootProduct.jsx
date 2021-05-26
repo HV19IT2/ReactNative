@@ -13,14 +13,8 @@ const RootProduct = () => {
     return (
      
            <Stack.Navigator>
-                <Stack.Screen 
-                    options={{headerShown: false}}
-                    name="Home" 
-                    component={Product} />
-                <Stack.Screen
-                    options={{headerShown: false}}
-                    name="Detail" 
-                    component={DetailPrd} />
+               <Stack.Screen name="ProductHome" component={Product} />
+                <Stack.Screen name="Detail" component={DetailPrd} />
             
             </Stack.Navigator>
     );

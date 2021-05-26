@@ -1,24 +1,31 @@
 import * as React from 'react';
-import {useState} from 'react';
 import { Text, View, StyleSheet, TextInput, Button, Alert } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import Constants from 'expo-constants';
 import axios from 'axios';
 import config from '../../api/config';
+import md5 from 'md5';
 export default () => {
-  
-  const [auth, setauth] = useState(false);
   const { register, setValue, handleSubmit, control, reset, errors } = useForm();
   const onSubmit = data => {
     // console.log({...data,signin:true});
     // console.log("ok");
-    axios.post(config.api+"/login_tmp.php",{data}).then((res) => {
+    axios.post(config.api+"/login_tmp.php",{submit:true,...data}).then((res) => {
         console.log(res);
-        setauth(true)
     })
    console.log("ok2");
   };
- 
+  axios({
+    method:'post',
+    url:'/login_tmp.php',
+    data: {
+      submit:true,
+      username: 'dhuy123',
+      password: md5('123')
+    }
+  }).then((ress)=>{
+    console.log(ress);
+  });
   const onChange = arg => {
     return {
       value: arg.nativeEvent.text,
@@ -26,12 +33,6 @@ export default () => {
   };
   console.log(errors);
 
-  if(auth){
-    return( 
-    <View>
-      <Text>Login successfull</Text>
-    </View>)
-  }
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Username</Text>
@@ -53,7 +54,6 @@ export default () => {
         control={control}
         render={({field: { onChange, onBlur, value }}) => (
           <TextInput
-            secureTextEntry={true}
             style={styles.input}
             onBlur={onBlur}
             onChangeText={value => onChange(value)}

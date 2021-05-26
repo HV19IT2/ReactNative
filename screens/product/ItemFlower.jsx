@@ -1,19 +1,10 @@
-import axios from 'axios';
-import config from '../../api/config';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Image, Text, View ,StyleSheet, Button} from 'react-native';
-import { Rating } from 'react-native-elements';
 const ItemFlower = (props) => {
   const flower = props.data;
 
   const handleDetail = props.handleDetail;
-  const [star, setstar] =useState({});
-    useEffect(() => {
-        axios.get(config.api+"/vote_tmp.php?id_prd="+flower.id_prd).then((response) =>{
-            setstar(response.data)
-        }
-      )  
-    }, []);
+ 
     return (
             <View style={styles.div}>
                 <Image 
@@ -23,17 +14,9 @@ const ItemFlower = (props) => {
                   }}
                 />
                 <View style={styles.bottomdiv}>
-                    <Text style={{ fontSize:"20px" }}>{flower.name_prd}</Text>
-                    <Rating 
-                    type='custom'
-                    imageSize={15} 
-                    readonly 
-                    ratingBackgroundColor="#969696"
-                    startingValue={star.star} />
-                    <Text style={styles.bold}>Giá: <Text style={styles.boldG}>{Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((flower.price_prd*(100-flower.discount_prd))/100)}</Text></Text>
-                    <Button
-                     color="#4e9f65" 
-                     onPress={()=>handleDetail(flower.id_prd)} title="Xem chi tiết">
+                    <Text>{flower.name_prd}</Text>
+                    <Text style={styles.bold}>Giá: {flower.price_prd}đ</Text>
+                    <Button onPress={()=>handleDetail(flower.id_prd)} title="xem chi tiet">
                     </Button>
                 </View>
             </View>
@@ -44,29 +27,25 @@ const styles = StyleSheet.create({
     //     boxShadow:"1px 2px 3px 4px gray"
     // },
     bold:{
-        fontWeight:"bold",
-    },
-    boldG:{
-      fontSize:"20px",
-      fontWeight:"bold",
-      color: "#4e9f65",
+        fontWeight:"bold"
     },
     bottomdiv:{
        textAlign: 'center',
-       width: "100%",
+       width: "171px",
     },
     div: {
-      width: "45%",
+      width: "177px",
       backgroundColor: "#fff",
       display: "flex",
       flexWrap: "wrap",
-      margin:"1.25%",
+      margin:"10px",
+      // border: "2px solid #000",
       borderRadius: "5px",
       padding: "2px"
     },
     img: {
-      width: "100%",
-      height: "170px",
+      width: "171px",
+      height: "152px",
       borderRadius: "5px",
     },
     
