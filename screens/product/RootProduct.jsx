@@ -1,18 +1,18 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Text, View, ScrollView } from 'react-native';
-import api from '../../api';
-import config from '../../api/config';
-import ItemFlower from './ItemFlower';
 import { createStackNavigator } from '@react-navigation/stack';
 import DetailPrd from './DetailPrd';
 import Product from './index';
+// import rating from './rating';
 const Stack = createStackNavigator();
 
 const RootProduct = () => {
     return (
      
            <Stack.Navigator>
+               {/* <Stack.Screen 
+                    // options={{headerShown: false}}
+                    name="Rating" 
+                    component={rating} /> */}
                 <Stack.Screen 
                     options={{headerShown: false}}
                     name="Home" 
