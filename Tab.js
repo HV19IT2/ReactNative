@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
-import { Iconc } from 'react-native-elements';
+import { Icon } from "react-native-elements";
 import Product from "./screens/product";
 import Cart from "./screens/cart/Cart";
 import RootProduct from "./screens/product/RootProduct";
@@ -27,7 +27,16 @@ function TabNav(props) {
           tabBarLabel: "",
           tabBarIcon: ({ tintColor }) => {
             return (
-              <MaterialCommunityIcons name="home" color={tintColor} size={25} />
+              <View style={{ 
+                paddingTop:10
+               }}>
+                <Icon
+                color="#4e9f65"
+                name="home"
+                size={30}
+                type="material"
+                />
+              </View>
             );
           },
         }}
@@ -37,7 +46,17 @@ function TabNav(props) {
           tabBarLabel: "",
           tabBarIcon: ({ tintColor }) => {
             return (
-              <MaterialCommunityIcons name="book" color={tintColor} size={25} />
+              <View style={{ 
+                paddingTop:10
+               }}>
+
+                 <Icon
+                   color="#4e9f65"
+                   name="shopping-cart"
+                   size={30}
+                   type="material"
+                   />
+               </View>
             );
           },
         }}
@@ -49,7 +68,17 @@ function TabNav(props) {
           tabBarLabel: "",
           tabBarIcon: ({ tintColor }) => {
             return (
-              <MaterialCommunityIcons name="account" color={tintColor} size={25} />
+              <View style={{ 
+                paddingTop:10
+               }}>
+
+                 <Icon
+                 color="#4e9f65"
+                 name="person"
+                 size={30}
+                 type="material"
+                 />
+               </View>
             );
           },
         }}

@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
     height: "100%",
+    backgroundColor: "#4e9f65",
     },
     headerDiv: {
         width: "100%",
@@ -9,9 +10,9 @@ const styles = StyleSheet.create({
         backgroundColor: "#4e9f65",
     },
     nameTx:{
-        fontSize:"30px",
+        fontSize:30,
         color: "white",
-        marginTop: "5%",
+        marginTop: "10%",
         marginLeft: "5%",
          position:"relative",
     },
@@ -22,103 +23,162 @@ const styles = StyleSheet.create({
         position:"relative",
     },
     label: {
-        fontSize:"18px",
+        fontSize:18,
         color: "white",
         position:"relative",
     },
     priceTx:{
-        fontSize:"25px",
+        fontSize:25,
         color: "white",
-        marginBottom:"5px",
+        marginBottom:5,
          position:"relative",
     },
     priceATx:{
-        fontSize:"14px",
+        fontSize:14,
         color: "#161616",
-        marginBottom:"5px",
+        marginBottom:5,
         position:"relative",
         textDecorationLine: "line-through"
     },
     amountTx:{
-        fontSize:"25px",
+        fontSize:25,
         color: "white",
         position:"relative",
-        marginBottom:"5px",
+        marginBottom:5,
 
     },
     img: {
         position:"absolute",
-        borderRadius:"10px",
-        marginLeft:"50%",
+        borderRadius:10,
+        // marginLeft:"50%",
+        right:40,
         width: "45%",
         height: "60%",
         top:"45%",
     },
     descTx: {
-        fontSize:"30px",
-        fontWeight:"600",
+        fontSize:30,
+        fontWeight: "600",
         marginTop: "10%",
         marginLeft: "10%",
         
     },
+    cmtTx: {
+        fontSize:20,
+        fontWeight: "600",
+        position:"relative",
+        width: "100%",
+        marginBottom:5        
+    },
     detailDes: {
-        fontSize:"20px",
+        fontSize:20,
         marginLeft:"10%",
         marginTop:"5%",
         marginRight:"5%",
     },
-    bottomDiv: {
-         position:"relative",
+    bottomDivV:{
+            position:"relative",
+         borderTopLeftRadius:40,
+         borderTopRightRadius:40,
+         backgroundColor: "white",
+         paddingVertical:10,
         //  paddingTop:35,
-         height: 323,
+         height: 440,
          zIndex:-10,
     },
+    bottomDiv: {
+        height:"100%",
+        width: "100%",
+    },
     comment: {
-         marginTop: 10,
+        //  marginTop: 10,
+         width: "100%",
+         backgroundColor: "white",
+         paddingHorizontal:10,
+         paddingVertical:10,
+    },
+    inCmt: {
+        width: "100%",
+        height:"auto",
+        borderRadius:10,
+        backgroundColor:"#f0f0f0",
+        paddingHorizontal:10,
+        paddingVertical:10,
+        marginBottom:10,
+        flexDirection: "column",
     },
     input:{
-        marginBottom: "10px",
+        marginBottom: 10,
         paddingHorizontal:10,
-        marginTop:"5px",
-        width:"70%",
-        height:"40px",
-        borderRadius:"8px",
-        backgroundColor:"#ddd",
-        marginLeft:"10%",
+        paddingTop:10,
+        marginTop:5,
+        width:"100%",
+        height:100,
+
+        borderRadius:8,
+        backgroundColor:"white",
+    },
+    botCmtIn:{
+        flexDirection:"row",
+        width: "100%",
     },
     cmt: {
-        fontSize:"18px",
+        fontSize:18,
         marginLeft:"10%",
-        marginTop:"5px",
+        marginTop:5,
+        marginBottom:10
+    },
+    ava:{
+        flexDirection:"row",
+        width: "100%",
     },
     username: {
-        fontSize:"18px",
-        fontWeight:"600",
-        marginLeft:"10%",
-        marginTop:"5%",
-        marginRight:"5%",
+        fontSize:18,
+        marginVertical:5,
+        width:"35%",
+        fontWeight: "600",
     },
     time:{
-        marginTop:"5px",
-        marginLeft:"10%",
-        color: "#969696",   
+        color: "#969696",  
+        width: "36%", 
     },
-    Rcmt: {
-        marginTop:"5px",
-        fontSize:"18px",
-        marginLeft:"15%",
+    Cmtdetail:{
+        width: "100%",
+        height: "auto",
+        backgroundColor: "#f0f0f0",
+        borderRadius:10,
+        paddingHorizontal:10,
+        paddingVertical:10,
+        marginBottom:10,
     },
-    Rusername: {
-        fontSize:"18px",
-        fontWeight:"600",
-        marginLeft:"15%",
-        marginTop:"5%",
-        marginRight:"5%",
+    Dcmt: {
+        width: "100%",
+        marginVertical:10
     },
-    Rtime:{
-        marginTop:"5px",
-        marginLeft:"15%",
-        color: "#969696",   
+    Rdate: {
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    CmtdetailR:{
+        width: "80%",
+        height: "auto",
+        marginLeft:"20%",
+        backgroundColor: "#f0f0f0",
+        borderRadius:10,
+        paddingHorizontal:10,
+        paddingVertical:10,
+        marginBottom:10,
+    },
+    DcmtR: {
+        width: "100%",
+        marginVertical:10
+    },
+   
+    timeR:{
+        color: "#969696",  
+        width: "100%",
+        marginLeft:"56%" 
     },
     });
     export default styles;

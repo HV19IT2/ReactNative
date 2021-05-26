@@ -1,21 +1,19 @@
 import React from 'react';
-import { Text, TextInput, View, TouchableOpacity  } from 'react-native';
-import axios from 'axios';
+import { Text, TextInput, View, TouchableOpacity, ToastAndroid  } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useState,useEffect} from 'react';
-import * as SecureStore from 'expo-secure-store';
-import config from '../../api/config';
 import { useForm, Controller } from 'react-hook-form';
 import Account from '../user/Account';
 import callApi from '../../api/axios';
 const Signin = (props) => {
-        const [auth, setauth] = useState(false);
+    const [auth, setauth] = useState(false);
+    const { handleSubmit, control, errors } = useForm();
         useEffect(() => {
             async function checkUserSignedIn(){
                 try {
                    let value = await AsyncStorage.getItem('auth');
                    if (value != null){
-                    setauth(true) 
+                    setauth("true") 
                    }
                    else {
                    
@@ -27,38 +25,42 @@ const Signin = (props) => {
             checkUserSignedIn()
         },[])
       
-        
-       
-       
      function save(key, value) {
          AsyncStorage.setItem(key, value);
-         setauth(true) 
+         setauth("true") 
       }
    
-    const { register, setValue, handleSubmit, control, reset, errors } = useForm();
     const onSubmit = data => {
-    
-    //   axios.defaults.withCredentials = true;
-      callApi.post(config.api+"/login_tmp.php",{data},
+      callApi.post("/login_tmp.php",{data},
       { headers : {
         'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
         }
       })
       .then(
             res => {
-                save("auth",true)
+                save("auth","true");
+                // console.log(res.data);
+                console.log("login");
+                 ToastAndroid.show("Đăng nhập thành công", ToastAndroid.SHORT);
+
             },
-      ).catch((e)=>console.log("loi r")),
-     console.log("ok2");
+      )
+      .catch(
+          (e)=>{
+              console.log({e});
+              console.log("401 loi r");
+              ToastAndroid.show("loi r", ToastAndroid.SHORT);
+        }),
+     console.log("OK");
     };
-   
-    const onChange = arg => {
-      return {
-        value: arg.nativeEvent.text,
-      };
-    };
-    // console.log(errors);
-    if(auth) return (<Account></Account>)
+    const navigation = props.navigation;
+    const handleDetail=(id)=>{
+        // console.log(id);
+        navigation.navigate("OrderDetail",{
+            id:id,
+        })
+    }
+    if(auth=="true") return (<Account handleDetail={handleDetail}></Account>)
     return (
         <View 
         style={{ 
@@ -75,7 +77,7 @@ const Signin = (props) => {
                 <Text
                 style={{
                     fontSize:30,
-                    fontWeight: 700,
+                    fontWeight: "700",
                     textAlign: "center",
                     marginBottom:20,
                     color:"white"
@@ -104,6 +106,7 @@ const Signin = (props) => {
                     )}
                     name="username"
                     rules={{ required: true }}
+                    defaultValue=""
                 />
                 <Controller
                     control={control}
@@ -127,6 +130,7 @@ const Signin = (props) => {
                     )}
                     name="password"
                     rules={{ required: true }}
+                    defaultValue=""
                 />
                  <View 
                 style={{ 
@@ -144,7 +148,7 @@ const Signin = (props) => {
                     <Text
                     style={{
                         fontSize:18,
-                        fontWeight: "bold",
+                        fontWeight: "600",
                         textAlign: "center",
                         color: "#000",
                         marginTop:8,
@@ -167,7 +171,7 @@ const Signin = (props) => {
                     <Text
                     style={{
                         fontSize:18,
-                        fontWeight: "bold",
+                        fontWeight: "600",
                         textAlign: "center",
                         color: "#000",
                         marginTop:8,

@@ -19,7 +19,9 @@ const styles = StyleSheet.create({
   },
   textStyles: {
     color: "white",
+    textAlign: "center",
     fontSize: 50,
-    fontWeight: "bold",
+    width:"100%",
+    fontWeight: "700",
   },
 });

@@ -1,8 +1,12 @@
 import axios from "axios";
 
-
+import Constants from "expo-constants";
+const { manifest } = Constants;
+const api = `http://${manifest.debuggerHost
+  .split(":")
+  .shift()}/FlowerShop`;
 const callApi = axios.create({
-    baseURL: 'https://api.example.com'
+    baseURL: api
   });
   
   // Alter defaults after instance has been created
