@@ -1,17 +1,37 @@
 import React from 'react';
-import { Text, View, Image,ScrollView, TouchableOpacity } from 'react-native';
-import styles from '../../styles/cartIndex';
-import InputSpinner from "react-native-input-spinner";
-import { Icon } from "react-native-elements";
-import config from '../../api/config';
-import callApi from '../../api/axios';
+import { Text, View, Image,ScrollView, TouchableOpacity, TouchableHighlight } from 'react-native';
 import {useState,useEffect} from 'react';
+import { Icon } from "react-native-elements";
+import InputSpinner from "react-native-input-spinner";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import callApi from '../../api/axios';
+import styles from '../../styles/cartIndex';
 import 'intl';
 import 'intl/locale-data/jsonp/vi';
 const CartDetail = (props) => {
     const navi = props.navigation
     const [cart, setcart] = useState([]);
     const [delitem, setdelitem] = useState(0);
+    const [available, setavailable] = useState(false);
+    useEffect(() => {
+        navi.addListener("focus", () =>{
+        async function checkUserSignedIn(){
+            try {
+               let value = await AsyncStorage.getItem('auth');
+               if (value != null){
+                setavailable(true) 
+               }
+               else {
+                setavailable(false) 
+              }
+            } catch (error) {
+              // Error retrieving data
+            }
+        }
+        checkUserSignedIn()
+        })
+    },[])
+    // console.log(available);
     useEffect(() => {
         navi.addListener("focus", () =>{
             callApi.get("/cartdetail_tmp.php").then((e)=>{
@@ -52,7 +72,7 @@ const CartDetail = (props) => {
 
         setcart(arr)
     }
-  
+    if(available)
     return (
         <View style={styles.container}>
             <ScrollView style={styles.divPrd}>
@@ -131,6 +151,31 @@ const CartDetail = (props) => {
             </View>
         </View>
         
-        );
+        )
+    else
+        return(
+            <View style={{ 
+                width:"100%", 
+                height:"100%", 
+                display: "flex", 
+                justifyContent: "center",
+                paddingHorizontal:"10%"
+             }}>
+                <TouchableHighlight 
+                underlayColor="#4e9f65" 
+                style={{ borderRadius:10 }}
+                onPress={() =>navi.navigate('User') }>
+                <Text
+                style={{ 
+                    fontSize:25, textAlign: "center",fontWeight: "600",
+                    backgroundColor:"white",
+                    height:80,
+                    paddingVertical:20,
+                    borderRadius:10
+                }}
+                > Hãy đăng nhập</Text>
+                </TouchableHighlight>
+            </View>
+        )
     }
     export default CartDetail;

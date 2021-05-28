@@ -7,12 +7,7 @@ const Stack = createStackNavigator();
 
 const RootProduct = () => {
     return (
-     
            <Stack.Navigator>
-               {/* <Stack.Screen 
-                    // options={{headerShown: false}}
-                    name="Rating" 
-                    component={rating} /> */}
                 <Stack.Screen 
                     options={{headerShown: false}}
                     name="Home" 

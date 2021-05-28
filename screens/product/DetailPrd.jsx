@@ -1,37 +1,55 @@
 import React, { useState,useEffect } from 'react';
-import { Text, View,Image, ScrollView, TouchableOpacity} from 'react-native';
-import styles from '../../styles/detailPrd';
+import { Text, View,Image, ScrollView, TouchableOpacity, ToastAndroid, } from 'react-native';
 import { Icon, Divider, Avatar } from 'react-native-elements';
+import { useForm, Controller } from 'react-hook-form';
+import { Textarea } from 'native-base';
 import { Rating } from 'react-native-elements';
 import callApi from '../../api/axios';
+import styles from '../../styles/detailPrd';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import 'intl';
 import 'intl/locale-data/jsonp/vi';
-import { Textarea } from 'native-base';
 const DetailPrd = (props) => {
     const route =props.route
     const id = route.params.id
+    const navi = props.navigation;
     const [flower, setflower] = useState({});
     const [cmts, setcmts] = useState([]);
     const [user, setuser] = useState({});
-    const navi = props.navigation;
     const [delcmt, setdelcmt] = useState(0);
+    const [addCmt, setaddCmt] = useState(0);
+    const [vote, setvote] = useState(0);
+    const [star, setstar] =useState({});
+    const [available, setavailable] = useState(false);
+    const { handleSubmit, control } = useForm();
+    useEffect(() => {
+        navi.addListener("focus", () =>{
+            async function checkUserSignedIn(){
+                try {
+                   let value = await AsyncStorage.getItem('auth');
+                   if (value != null){
+                    setavailable(true) 
+                   }
+                   else {
+                    setavailable(false) 
+                  }
+                } catch (error) {
+                  // Error retrieving data
+                }
+            }
+            checkUserSignedIn()
+            })
+    },[])
+    // console.log(available);
     useEffect(() => {
         navi.addListener("focus", () =>{
             callApi.get("/user_tmp.php")
-                    .then(
-                        e=>{
-                                setuser(e.data);
-                            },
-                    )
+            .then(
+                e=>{
+                        setuser(e.data);
+                    })
         })
     }, []);
-    useEffect(() => {
-        callApi.get("/comment_tmp.php?id_prd="+id).then((response) =>{
-            setcmts(response.data)
-            // console.log(response.data);
-        }
-     )  
-    }, [user]);
     const delcomment =(id_cmt) =>{
         callApi.get("/delcomment_tmp.php?id_cmt="+id_cmt)
         .then((e) =>{
@@ -40,18 +58,10 @@ const DetailPrd = (props) => {
         })
     }
     useEffect(() => {
-        callApi.get("/comment_tmp.php?id_prd="+id).then((response) =>{
-            setcmts(response.data)
-        }
-     )  
-    }, [delcmt]);
-    useEffect(() => {
         callApi.get("/index_tmp.php?id_prd="+id).then((response) =>{
-           setflower(response.data)
-        }
-     )  
+            setflower(response.data)
+        })  
     }, []);
-    const [star, setstar] =useState({});
     useEffect(() => {
         callApi.get("/vote_tmp.php?id_prd="+id).then((response) =>{
             setstar(response.data)
@@ -59,20 +69,45 @@ const DetailPrd = (props) => {
       )  
     }, []);
     const addCart = (id) => {
-          callApi.post("/addcart_tmp.php?id_prd="+id)
-          .then(
-                res => {
-                    console.log("add cart success");
-                },
-          )
-         
-        };
+        callApi.post("/addcart_tmp.php",(id))
+        .then(
+            res => {
+                console.log("add cart success");
+                    ToastAndroid.show("Giỏ hàng: +1", 
+                    ToastAndroid.SHORT
+                    );
+                    // console.log(res.data);
+                })
+            };
     const ratingCompleted =(rating)=> {
-            console.log("Rating is: " + rating)
-          }
-    return (
-        <ScrollView style={styles.container} >
+        setvote(rating)
+    }
+    const addComment = (data) =>{
+        callApi.post("/addcmt_tmp.php",{id, vote, data})
+        .then(
+            res => {
+                console.log("add cmt success");
+                setaddCmt(addCmt + 1);
+                console.log(res.data);
+            })
+        }      
+    useEffect(() => {
+        callApi.get("/comment_tmp.php?id_prd="+id).then((response) =>{
+            setcmts(response.data)
+        })  
+    }, [user,delcmt,addCmt]);
+return (
+    <ScrollView style={styles.container} >
         <View style={styles.headerDiv}>
+        {  flower.discount_prd != 0 &&
+            <View style={styles.itemDs}>
+            <Text style={styles.disc}>
+              {Intl.NumberFormat("en-US", {
+                  style: "percent",
+                  signDisplay: "exceptZero"
+              }).format(-flower.discount_prd/100)}</Text>
+          </View>
+          }
             <Text style={styles.nameTx}>{flower.name_prd}</Text>
             <View style={styles.leftDiv}>
                 <Text style={styles.label}>Giá: <Text style={styles.priceATx}>{Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(flower.price_prd)}</Text></Text>
@@ -82,7 +117,6 @@ const DetailPrd = (props) => {
                 <Rating
                 type='custom'
                 style={{
-                    left:-10,
                     marginTop:5,
                     marginBottom:5,
                     position:"relative",
@@ -97,14 +131,17 @@ const DetailPrd = (props) => {
                     color: "white",
                     position:"relative",
                     marginBottom:20
-                 }}>({star.tt} Đánh giá)</Text>
-                <Icon
+                 }}>{Intl.NumberFormat('en-US',{ maximumFractionDigits: 1 }).format(star.star)} ({star.tt} Đánh giá)</Text>
+                <View>
+                    <Icon
                     raised
                     name='cart-plus'
                     type='font-awesome'
                     color='#4e9f65'
-                    onPress={() =>addCart(id)}
+                    onPress={() =>addCart(id) }
                     />
+                </View>
+                
             </View>
                 <Image style={styles.img}
                 source={{
@@ -112,66 +149,79 @@ const DetailPrd = (props) => {
                 }}/>
         </View>
         <View style={styles.bottomDivV}>
-        <View style={styles.bottomDiv}>
-            <Text style={styles.descTx}>Mô tả</Text>
-            <Text style={styles.detailDes}>{flower.desc_prd}</Text>
-            
+            <View style={styles.bottomDiv}>
+                <Text style={styles.descTx}>Mô tả</Text>
+                <Text style={styles.detailDes}>{flower.desc_prd}</Text>
+            </View>
         </View>
         <Divider style={{ width: "100%"}} />
-        </View>
         <View style={styles.comment}>
-         <View style={styles.inCmt}>
-         <Text style={styles.cmtTx}>Bình luận</Text>
-         <View style={styles.ava}>
-         <Avatar
-            rounded
-            icon={{name: 'user', type: 'font-awesome'}}
-            size="small"
-            containerStyle={{ backgroundColor:"#ddd", marginRight:10 }}
-            />
-            <Text style={styles.username}>{user?.username}</Text>
-         </View>
-          <Textarea
-                        style={styles.input}
-                        placeholder="Nhập bình luận ..."
-                        keyboardType="default"
+            <View style={styles.inCmt}>
+            <Text style={styles.cmtTx}>Bình luận</Text>
+            { available &&
+                <View>
+                    <View style={styles.ava}>
+                    <Avatar
+                        rounded
+                        icon={{name: 'user', type: 'font-awesome'}}
+                        size="small"
+                        containerStyle={{ backgroundColor:"#ddd", marginRight:10 }}
+                        />
+                        <Text style={styles.username}>{user?.username}</Text>
+                    </View>
+                    <Controller
+                        control={control}
+                        render={({field: { onChange, onBlur, value }}) => (
+                                <Textarea
+                                    style={styles.input}
+                                    placeholder="Nhập bình luận ..."
+                                    keyboardType="default"
+                                    value={value}
+                                    onBlur={onBlur}
+                                    onChangeText={value => onChange(value)}
+                                />
+                                )}
+                        name="cmt_dt"
+                        rules={{ required: true }}
+                        defaultValue=""
                     />
-            <View style={styles.botCmtIn}>
-                <Rating
-                type='custom'
-                tintColor={"#f0f0f0"}
-                ratingCount={5}
-                imageSize={20}
-                onFinishRating={ratingCompleted}
-                style={{ 
-                    width:"30%",
-                }}
-                />  
-                 <TouchableOpacity
-                style={{ 
-                    backgroundColor: "#4e9f65",
-                    borderRadius: 7,
-                    width: "14%",
-                    marginTop:-5,
-                    marginLeft:"56%"
-                 }}
-                //  onPress={handleSubmit(onSubmit)}
-                >
+                    <View style={styles.botCmtIn}>
+                        <Rating
+                        type='custom'
+                        tintColor={"#f0f0f0"}
+                        ratingCount={5}
+                        imageSize={20}
+                        onFinishRating={ratingCompleted}
+                        style={{ 
+                            width:"30%",
+                        }}
+                        />  
+                    <TouchableOpacity
+                    style={{ 
+                        backgroundColor: "#4e9f65",
+                        borderRadius: 7,
+                        // paddingVertical:5,
+                        width: "30%",
+                        marginLeft:"40%"
+                        }}
+                    onPress={handleSubmit(addComment)} 
+                    >
                     <Icon
                         name='sc-telegram'
                         type='evilicon'
                         color='#fff'
                         size={30}
                         />
-                </TouchableOpacity>
-            </View>
-         </View>  
+                    </TouchableOpacity>
+                    </View>
+                </View>
+            }
+            </View>  
          {Object.keys(cmts)?.map((k)=>{
             return (
             <View key={k} style={{ marginBottom:10 }}>
                 <View style={styles.Cmtdetail}>
-                     { cmts[k].id_user==user?.id_user &&
-                       
+                     { cmts[k].id_user==user?.id_user && available &&
                              <Icon
                             raised
                             containerStyle={{ position:"absolute", right:0 }}

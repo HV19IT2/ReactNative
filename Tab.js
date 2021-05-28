@@ -1,10 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Text, View } from "react-native";
+// import PropTypes from "prop-types";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialCommunityIcons } from "react-native-vector-icons";
 import { Icon } from "react-native-elements";
-import Product from "./screens/product";
 import Cart from "./screens/cart/Cart";
 import RootProduct from "./screens/product/RootProduct";
 import RootAuth from "./screens/login/RootAuth";
@@ -13,10 +10,45 @@ const Tab = createBottomTabNavigator();
 function TabNav(props) {
   return (
     <Tab.Navigator
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color }) => {
+
+        let iconName;
+
+        if (route.name === 'Home') {
+          iconName = focused
+            ? 'home'
+            : 'home-outline';
+          
+        } else if (route.name === 'Cart') {
+          iconName = focused 
+          ? 'cart' 
+          : 'cart-outline';
+        }else{
+          iconName = focused 
+          ? 'account-circle' 
+          : 'account-circle-outline';
+        }
+
+        // You can return any component that you like here!
+        return <Icon name={iconName} size={35} color={color} type="material-community" />;
+      },
+    })}
+
       tabBarOptions={{
-        activeTintColor: "#38c930",
-        inactiveTintColor: "#78c930",
-        backgroundColor:"#969696",
+        activeTintColor: "#4e9f65",
+        inactiveTintColor: "#ddd",
+        style:{
+          borderTopLeftRadius:100,
+          borderTopRightRadius:100,
+          borderBottomLeftRadius:30,
+          borderBottomRightRadius:30,
+          borderColor: "#4e9f65",
+          borderStyle:"solid",
+          borderWidth:3,
+          width:"100%",
+          paddingTop:6
+        }
       }}
     >
      
@@ -25,40 +57,12 @@ function TabNav(props) {
         component={RootProduct}
         options={{
           tabBarLabel: "",
-          tabBarIcon: ({ tintColor }) => {
-            return (
-              <View style={{ 
-                paddingTop:10
-               }}>
-                <Icon
-                color="#4e9f65"
-                name="home"
-                size={30}
-                type="material"
-                />
-              </View>
-            );
-          },
         }}
       />
       <Tab.Screen
         options={{
           tabBarLabel: "",
-          tabBarIcon: ({ tintColor }) => {
-            return (
-              <View style={{ 
-                paddingTop:10
-               }}>
-
-                 <Icon
-                   color="#4e9f65"
-                   name="shopping-cart"
-                   size={30}
-                   type="material"
-                   />
-               </View>
-            );
-          },
+          
         }}
         name="Cart"
         component={Cart}
@@ -66,21 +70,7 @@ function TabNav(props) {
        <Tab.Screen
         options={{
           tabBarLabel: "",
-          tabBarIcon: ({ tintColor }) => {
-            return (
-              <View style={{ 
-                paddingTop:10
-               }}>
-
-                 <Icon
-                 color="#4e9f65"
-                 name="person"
-                 size={30}
-                 type="material"
-                 />
-               </View>
-            );
-          },
+        
         }}
         name="User"
         component={RootAuth}
@@ -89,6 +79,6 @@ function TabNav(props) {
   );
 }
 
-TabNav.propTypes = {};
+// TabNav.propTypes = {};
 
 export default TabNav;

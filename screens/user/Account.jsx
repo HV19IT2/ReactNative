@@ -73,7 +73,7 @@ const Account = (props) => {
     </View>
     <View style={styles.div2}>
         
-            <Text style={{ textAlign: "center", fontSize:22}}>
+            <Text style={{ textAlign: "center", fontSize:22 ,marginTop:5}}>
                 Thông tin đơn hàng
             </Text>
             <View style={styles.tabContainer}>
