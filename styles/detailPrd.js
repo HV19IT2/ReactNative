@@ -59,8 +59,7 @@ const styles = StyleSheet.create({
     descTx: {
         fontSize:30,
         fontWeight: "600",
-        marginTop: "10%",
-        marginLeft: "10%",
+        marginBottom:10,
         
     },
     cmtTx: {
@@ -72,26 +71,21 @@ const styles = StyleSheet.create({
     },
     detailDes: {
         fontSize:20,
-        marginLeft:"10%",
-        marginTop:"5%",
-        marginRight:"5%",
     },
     bottomDivV:{
-            position:"relative",
+        position:"relative",
          borderTopLeftRadius:40,
          borderTopRightRadius:40,
          backgroundColor: "white",
-         paddingVertical:10,
-        //  paddingTop:35,
-         height: 440,
+         paddingVertical:"10%",
+         height: 'auto',
          zIndex:-10,
     },
     bottomDiv: {
-        height:"100%",
         width: "100%",
+        paddingHorizontal:"10%"
     },
     comment: {
-        //  marginTop: 10,
          width: "100%",
          backgroundColor: "white",
          paddingHorizontal:10,
@@ -140,7 +134,8 @@ const styles = StyleSheet.create({
     },
     time:{
         color: "#969696",  
-        width: "36%", 
+        width: "82%",
+        textAlign:"right"
     },
     Cmtdetail:{
         width: "100%",
@@ -178,8 +173,30 @@ const styles = StyleSheet.create({
     timeR:{
         color: "#969696",  
         width: "100%",
-        marginLeft:"56%" 
+       textAlign: "right",
     },
+    itemDs:{
+        // width:"auto",
+        width: 50,
+        height:50,
+        position:"absolute",
+        zIndex:10,
+        right:"5%",
+        top:"40%",
+        backgroundColor: "#ff4d4d",
+        borderRadius:100,
+        paddingHorizontal:3,
+        paddingVertical:1,
+        borderWidth:1,
+        borderColor:"white",
+        borderStyle:"solid",
+        justifyContent:"center",      
+      },
+      disc:{
+        color: "white",
+        fontSize:16,
+        textAlign: "center",
+      },
     });
     export default styles;
     

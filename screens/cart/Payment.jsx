@@ -102,7 +102,6 @@ const Payment = (props) => {
                             />
                             )}
                             name="note"
-                            rules={{ required: true }}
                             defaultValue=""
                         />
                         </View>

@@ -10,7 +10,6 @@ const Stack = createStackNavigator();
 const RootAuth = () => {
 
     return (
-     
            <Stack.Navigator>
                <Stack.Screen  options={{headerShown: false}} name="Signin" component={Signin} />
                 <Stack.Screen  options={{headerShown: false}} name="Signup" component={Signup} /> 

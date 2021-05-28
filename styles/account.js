@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     fontSize:30,
     textAlign:"center",
     width: "100%",
-    // marginVertical:40,
     color: "white",
   },
   userTxt:{
@@ -64,15 +63,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 10,
-    height: "20%",
     alignItems: "center",
-    marginTop: 10,
-    marginBottom:10,
-    height: 40
+    marginVertical:5
   },
   touchLR:{
     backgroundColor:"#ff3838",
-    paddingHorizontal:10,
+    paddingHorizontal:5,
     paddingVertical:10,
     borderRadius:5,
     width:"31%"
@@ -81,24 +77,27 @@ const styles = StyleSheet.create({
   TxTouchLR:{
     fontSize:16,
     fontWeight: "500",
-    color: "white"
+    color: "white",
+    textAlign:"center",
+
   },
   touchLC:{
     backgroundColor:"#38acff",
-    paddingHorizontal:10,
+    paddingHorizontal:5,
     paddingVertical:10,
     borderRadius:5,
-    width:"33%"
+    width:"31%"
 
   },
   TxTouchLC:{
     fontSize:16,
     fontWeight: "500",
-    color: "white"
+    color: "white",
+    textAlign:"center",
   },
   touchLL:{
     backgroundColor:"#4e9f65",
-    paddingHorizontal:10,
+    paddingHorizontal:5,
     paddingVertical:10,
     borderRadius:5,
     width:"31%"
@@ -106,14 +105,15 @@ const styles = StyleSheet.create({
   TxTouchLL:{
     fontSize:16,
     fontWeight: "500",
-    color: "white"
+    color: "white",
+    textAlign:"center",
   },
   activeT:{
     borderColor: "#4e9f65",
     borderWidth:2,
     borderStyle:"solid",
     backgroundColor:"white",
-    paddingHorizontal:10,
+    paddingHorizontal:5,
     paddingVertical:10,
     borderRadius:5,
     width:"31%"
@@ -122,7 +122,8 @@ const styles = StyleSheet.create({
   activeTx: {
     fontSize:16,
     fontWeight: "500",
-    color: "#4e9f65"
+    color: "#4e9f65",
+    textAlign:"center",
   },
   activeTC:{
     borderColor: "#38acff",
@@ -132,20 +133,21 @@ const styles = StyleSheet.create({
     paddingHorizontal:5,
     paddingVertical:10,
     borderRadius:5,
-    width:"33%"
+    width:"31%"
 
   },
   activeTxC: {
     fontSize:16,
     fontWeight: "500",
-    color: "#38acff"
+    color: "#38acff",
+    textAlign:"center",
   },
   activeTR:{
     borderColor: "#ff3838",
     borderWidth:2,
     borderStyle:"solid",
     backgroundColor:"white",
-    paddingHorizontal:10,
+    paddingHorizontal:5,
     paddingVertical:10,
     borderRadius:5,
     width:"31%"
@@ -154,7 +156,8 @@ const styles = StyleSheet.create({
   activeTxR: {
     fontSize:16,
     fontWeight: "500",
-    color: "#ff3838"
+    color: "#ff3838",
+    textAlign:"center",
   },
   div3:{
       width:"100%",
