@@ -13,28 +13,25 @@ const Product = (props) => {
     const slCate = (id) => setidcate(id);
     const updateSearch = (text) => settextSearch(text);
     const handleDetail=(id)=>{
-        navigation.navigate("Detail",{
-            id:id
-        })
+        navigation.navigate("Detail",{ id:id })
     }
-    const onReload =()=>{
-         callApi.get('/index_tmp.php').then((response) =>{
+    useEffect(() => {
+        navigation.addListener("focus", () =>{
+        callApi.get('/index_tmp.php').then((response) =>{
             setflowers(response.data);
-        }
-     ).catch((e)=>{
-         console.log(e.data);
-        //  console.log("loi");
-     })
-    }
+        })
+    })
+    }, []);
     useEffect(() => {
         callApi.get('/cate_tmp.php').then((response) =>{
             setcate(response.data);
-        }
-     ).catch((e)=>{
-         console.log(e.data);
-        //  console.log("loi");
-     })
+        })
     }, []);
+    const onReload =()=>{
+         callApi.get('/index_tmp.php').then((response) =>{
+            setflowers(response.data);
+        })
+    }
     useEffect(() => {
         callApi.get("/index_tmp.php?id_cate="+idcate).then((response) =>{
             setflowers(response.data)
