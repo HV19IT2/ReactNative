@@ -39,17 +39,14 @@ const Signin = (props) => {
       .then(
             res => {
                 save("auth","true");
-                // console.log(res.data);
-                console.log("login");
-                 ToastAndroid.show("Đăng nhập thành công", ToastAndroid.SHORT);
+                ToastAndroid.show(res.data.mess, ToastAndroid.SHORT);
 
             },
       )
       .catch(
           (e)=>{
-              console.log({e});
-              console.log("401 loi r");
-              ToastAndroid.show("loi r", ToastAndroid.SHORT);
+            //   console.log(e.response.data);
+              ToastAndroid.show(e.response.data.mess, ToastAndroid.SHORT);
         }),
      console.log("OK");
     };
@@ -105,7 +102,7 @@ const Signin = (props) => {
                     />
                     )}
                     name="username"
-                    rules={{ required: true }}
+                    // rules={{ required: true }}
                     defaultValue=""
                 />
                 <Controller
@@ -129,7 +126,7 @@ const Signin = (props) => {
                     />
                     )}
                     name="password"
-                    rules={{ required: true }}
+                    // rules={{ required: true }}
                     defaultValue=""
                 />
                  <View 

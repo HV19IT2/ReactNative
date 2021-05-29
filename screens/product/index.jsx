@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Text, View, ScrollView, StyleSheet, Image, TouchableHighlight} from 'react-native';
+import { Text, View, ScrollView, StyleSheet, Image, TouchableHighlight, LogBox} from 'react-native';
 import ItemFlower from './ItemFlower';
 import {SearchBar } from 'react-native-elements';
 import callApi from '../../api/axios';
 const Product = (props) => {
+    LogBox.ignoreLogs(['Warning: ...']);
+    LogBox.ignoreAllLogs();
     const navigation = props.navigation;
     const [flowers, setflowers] = useState([]);
     const [cate, setcate] = useState([]);
@@ -33,15 +35,15 @@ const Product = (props) => {
         })
     }
     useEffect(() => {
-        callApi.get("/index_tmp.php?id_cate="+idcate).then((response) =>{
-            setflowers(response.data)
-        })
-    }, [idcate]);
-    useEffect(() => {
         callApi.get("/index_tmp.php?search-value="+textSearch).then((response) =>{
             setflowers(response.data)
         })
     }, [textSearch]);
+    useEffect(() => {
+        callApi.get("/index_tmp.php?id_cate="+idcate).then((response) =>{
+            setflowers(response.data)
+        })
+    }, [idcate]);
     return (
         <ScrollView>
             <View style={styles.Vlogo}>

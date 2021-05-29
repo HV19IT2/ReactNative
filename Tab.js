@@ -31,7 +31,7 @@ function TabNav(props) {
         }
 
         // You can return any component that you like here!
-        return <Icon name={iconName} size={35} color={color} type="material-community" />;
+        return <Icon name={iconName} size={30} color={color} type="material-community" />;
       },
     })}
 
@@ -39,15 +39,8 @@ function TabNav(props) {
         activeTintColor: "#4e9f65",
         inactiveTintColor: "#ddd",
         style:{
-          borderTopLeftRadius:100,
-          borderTopRightRadius:100,
-          borderBottomLeftRadius:30,
-          borderBottomRightRadius:30,
-          borderColor: "#4e9f65",
-          borderStyle:"solid",
-          borderWidth:3,
-          width:"100%",
-          paddingTop:6
+          // width:"100%",
+          paddingTop:7
         }
       }}
     >

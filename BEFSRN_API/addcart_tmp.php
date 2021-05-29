@@ -1,6 +1,7 @@
 <?php 
 include 'config.php';
-$data = json_decode(file_get_contents("php://input"),true);
+if($id!=''){
+	$data = json_decode(file_get_contents("php://input"),true);
 echo json_encode((int)$data);
 $id_prd = (int)$data;
 $id_user = $id;
@@ -32,4 +33,6 @@ else
 			$db->statement($ins_cartdt);
 		}
 	}
+}
+
 ?> 

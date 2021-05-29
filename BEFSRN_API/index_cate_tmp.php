@@ -1,7 +1,8 @@
 <?php
 if($_GET['id_cate']==0){
     $sql="SELECT * from products 
-    where status_prd = 0 ";
+    where status_prd = 0 
+    LIMIT 0, 12";
 }else{
      $parentCate = $db->getRow("SELECT id_parentcate from categories where id_cate = ".$_GET['id_cate']."");
     
@@ -45,7 +46,7 @@ if($_GET['id_cate']==0){
     if(isset($_SESSION['limit'])){
         $limit = $_SESSION['limit'];
     }else{
-        $limit=9;
+        $limit=12;
     }
     $total_page = ceil($total_records / $limit);
     if ($current_page > $total_page)

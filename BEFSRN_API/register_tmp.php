@@ -47,14 +47,14 @@ $usernameErr=$passwordErr="";
 
                     http_response_code(200);
                     $array = [
-                        "mess"=>"DK susscccc",
+                        "mess"=>"Đăng kí thành công",
                     ];
                     echo json_encode($array);
                    
                     }else{
                         http_response_code(401);
                             $array = [
-                                "mess"=>"loi r",
+                                "mess"=>"Đăng kí không thành công",
                             ];
                             echo json_encode($array);
                     }
