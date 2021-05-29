@@ -45,14 +45,9 @@ const Account = (props) => {
    
     function logout() {
         AsyncStorage.removeItem("auth");
-        console.log("pkk");
-        setauth(false)
-        callApi.post("/logout_tmp.php")
-        // .then(
-        //     e=>{
-        //             setuser(e.data);
-        //         }
-        // )
+        setauth(false);
+        callApi.post("/logout_tmp.php");
+        ToastAndroid.show("Đăng xuất", ToastAndroid.SHORT);
      }
 
 
