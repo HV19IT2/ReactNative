@@ -47,13 +47,12 @@ const Account = (props) => {
         AsyncStorage.removeItem("auth");
         console.log("pkk");
         setauth(false)
-        callApi.get("/logout_tmp.php")
-        .then(
-            e=>{
-                
-                    setuser(e.data);
-                }
-        )
+        callApi.post("/logout_tmp.php")
+        // .then(
+        //     e=>{
+        //             setuser(e.data);
+        //         }
+        // )
      }
 
 
