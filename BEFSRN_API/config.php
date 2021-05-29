@@ -12,7 +12,7 @@ $id = '';
 if(!isset($_COOKIE['auth'])){
     http_response_code(401);
     $array = [
-      "mess"=>"Auth not Sign",
+      "mess"=>"Hãy đăng nhập",
     ];
     echo json_encode($array);
     $id='';

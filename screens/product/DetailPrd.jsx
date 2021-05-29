@@ -7,6 +7,7 @@ import { Rating } from 'react-native-elements';
 import callApi from '../../api/axios';
 import styles from '../../styles/detailPrd';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LogBox } from 'react-native';
 import 'intl';
 import 'intl/locale-data/jsonp/vi';
 const DetailPrd = (props) => {
@@ -18,10 +19,12 @@ const DetailPrd = (props) => {
     const [user, setuser] = useState({});
     const [delcmt, setdelcmt] = useState(0);
     const [addCmt, setaddCmt] = useState(0);
-    const [vote, setvote] = useState(0);
+    const [vote, setvote] = useState(2.5);
     const [star, setstar] =useState({});
     const [available, setavailable] = useState(false);
     const { handleSubmit, control } = useForm();
+    LogBox.ignoreLogs(['Warning: ...']);
+    LogBox.ignoreAllLogs();
     useEffect(() => {
         navi.addListener("focus", () =>{
             async function checkUserSignedIn(){
@@ -40,7 +43,6 @@ const DetailPrd = (props) => {
             checkUserSignedIn()
             })
     },[])
-    // console.log(available);
     useEffect(() => {
         navi.addListener("focus", () =>{
             callApi.get("/user_tmp.php")
@@ -48,12 +50,16 @@ const DetailPrd = (props) => {
                 e=>{
                         setuser(e.data);
                     })
+            .catch(err=>{
+                // ToastAndroid.show(err.response.data.mess, 
+                // ToastAndroid.SHORT
+                // );
+            })
         })
     }, []);
     const delcomment =(id_cmt) =>{
         callApi.get("/delcomment_tmp.php?id_cmt="+id_cmt)
         .then((e) =>{
-            // console.log(e.data);
             setdelcmt( delcmt + 1);
         })
     }
@@ -67,17 +73,21 @@ const DetailPrd = (props) => {
             setstar(response.data)
         }
       )  
-    }, []);
+    }, [delcmt,addCmt]);
     const addCart = (id) => {
         callApi.post("/addcart_tmp.php",(id))
         .then(
             res => {
-                console.log("add cart success");
                     ToastAndroid.show("Giỏ hàng: +1", 
                     ToastAndroid.SHORT
                     );
-                    // console.log(res.data);
                 })
+        .catch(err=>{
+            ToastAndroid.show(err.response.data.mess, 
+            ToastAndroid.SHORT
+            );
+
+        })
             };
     const ratingCompleted =(rating)=> {
         setvote(rating)
@@ -86,9 +96,7 @@ const DetailPrd = (props) => {
         callApi.post("/addcmt_tmp.php",{id, vote, data})
         .then(
             res => {
-                console.log("add cmt success");
                 setaddCmt(addCmt + 1);
-                console.log(res.data);
             })
         }      
     useEffect(() => {
@@ -205,6 +213,7 @@ return (
                         marginLeft:"40%"
                         }}
                     onPress={handleSubmit(addComment)} 
+                   // onPress={()=> reset({ cmt_dt: " " })}
                     >
                     <Icon
                         name='sc-telegram'

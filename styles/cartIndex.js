@@ -13,11 +13,12 @@ const styles = StyleSheet.create({
     divPrd: {
         width: "100%",
         paddingHorizontal:5,
-        paddingVertical:15,
+        paddingVertical:5,
         height: "80%",
         position:"relative",
         display: "flex",
         marginBottom: 10,
+        paddingBottom:10
     },
     divPrdItem: {
         width: "100%",
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
         display:"flex",
         position:"relative",
         marginBottom:10,
+        // marginVertical:10,
         borderRadius: 20,
         paddingHorizontal:10,
         paddingVertical:10,

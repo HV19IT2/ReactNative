@@ -17,6 +17,11 @@ const Payment = (props) => {
         });
         return rs;
     }
+    // useEffect(() => {
+    //     props.navigation.addListener("focus", () =>{
+    //         props.navigation.navigate("Cart Detail")
+    //     })
+    // }, []);
     const onPay = (data) => {
       const cost = total()
       callApi.post("/payment_tmp.php",{data,cost,cart})

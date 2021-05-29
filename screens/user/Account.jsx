@@ -1,6 +1,6 @@
 import React from 'react';
 import {useState,useEffect} from 'react';
-import {  Text, TextInput, View, TouchableOpacity, TouchableWithoutFeedback  } from 'react-native';
+import {  Text, TextInput, View, TouchableOpacity, TouchableWithoutFeedback, ToastAndroid  } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RootAuth from '../login/RootAuth';
 import axios from 'axios';
@@ -26,6 +26,7 @@ const Account = (props) => {
         .catch((e)=>{
             AsyncStorage.removeItem("auth");
                 setauth(false)
+            ToastAndroid.show(e.response.data.mess, ToastAndroid.SHORT);
         })
     }, [])
     const navigation = props.navigation;
@@ -44,8 +45,9 @@ const Account = (props) => {
    
     function logout() {
         AsyncStorage.removeItem("auth");
-        console.log("pkk");
-        setauth(false)
+        setauth(false);
+        callApi.post("/logout_tmp.php");
+        ToastAndroid.show("Đăng xuất", ToastAndroid.SHORT);
      }
 
 

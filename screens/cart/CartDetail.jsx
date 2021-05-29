@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image,ScrollView, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { Text, View, Image,ScrollView, TouchableOpacity, TouchableHighlight, ToastAndroid, LogBox } from 'react-native';
 import {useState,useEffect} from 'react';
 import { Icon } from "react-native-elements";
 import InputSpinner from "react-native-input-spinner";
@@ -13,6 +13,8 @@ const CartDetail = (props) => {
     const [cart, setcart] = useState([]);
     const [delitem, setdelitem] = useState(0);
     const [available, setavailable] = useState(false);
+    LogBox.ignoreLogs(['Warning: ...']);
+    LogBox.ignoreAllLogs();
     useEffect(() => {
         navi.addListener("focus", () =>{
         async function checkUserSignedIn(){
@@ -31,11 +33,18 @@ const CartDetail = (props) => {
         checkUserSignedIn()
         })
     },[])
-    // console.log(available);
+   
     useEffect(() => {
         navi.addListener("focus", () =>{
-            callApi.get("/cartdetail_tmp.php").then((e)=>{
+            callApi.get("/cartdetail_tmp.php")
+            .then((e)=>{
                 setcart(e.data)
+            })
+            .catch(err=>{
+                // ToastAndroid.show(err.response.data.mess, 
+                // ToastAndroid.SHORT
+                // );
+                // console.log(err.response.data.mess);
             })
         })
     }, []);
@@ -57,6 +66,12 @@ const CartDetail = (props) => {
             rs+=e?.prd_qty*e?.price_prd*((100-e?.discount_prd)/100)
         });
         return rs;
+    }
+    const pay = ()=>{
+        const cost = total()
+        if(cost>0){
+            props.navigation.navigate('Payment',{cart: cart})
+        }
     }
     const handleQuantity=(id,quantity) =>{
         let index =0;
@@ -139,7 +154,7 @@ const CartDetail = (props) => {
                 <View style={styles.pay}>
                 <TouchableOpacity
                     style={styles.btnP}
-                    onPress={() => props.navigation.navigate('Payment',{cart: cart})} 
+                    onPress={() => pay()} 
                     >
                         <Text
                              style={styles.TxP}
