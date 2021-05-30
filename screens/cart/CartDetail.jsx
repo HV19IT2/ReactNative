@@ -56,8 +56,15 @@ const CartDetail = (props) => {
         })
     }
     useEffect(() => {
-            callApi.get("/cartdetail_tmp.php").then((e)=>{
+            callApi.get("/cartdetail_tmp.php")
+            .then((e)=>{
                 setcart(e.data)
+            })
+            .catch(err=>{
+                // ToastAndroid.show(err.response.data.mess, 
+                // ToastAndroid.SHORT
+                // );
+                // console.log(err.response.data.mess);
             })
     }, [delitem]);
     const total = ()=>{
