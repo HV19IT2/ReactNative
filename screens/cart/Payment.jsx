@@ -156,7 +156,7 @@ const Payment = (props) => {
                             <Text
                                 style={styles.TxP}
                             >
-                                Thanh toán
+                                Thanh toán khi nhận hàng
                             </Text>
                     </TouchableOpacity>
                     </View>

@@ -2,7 +2,7 @@ import axios from 'axios';
 import config from '../../api/config';
 import React, { useEffect, useState } from 'react';
 import { Image, Text, View ,StyleSheet, Button, TouchableHighlight} from 'react-native';
-import { Icon, Rating } from 'react-native-elements';
+import { Rating } from 'react-native-elements';
 import callApi from '../../api/axios';
 import 'intl';
 import 'intl/locale-data/jsonp/vi';
@@ -11,12 +11,14 @@ const ItemFlower = (props) => {
   // console.log(flower.id_prd);
   const handleDetail = props.handleDetail;
   const [star, setstar] =useState({});
+  // const[i, seti] = useState(0)
     useEffect(() => {
         callApi.get("/vote_tmp.php?id_prd="+flower.id_prd).then((response) =>{
             setstar(response.data)
-        }
-      )  
-    }, []);
+            // seti(i+1)
+          }) 
+          // console.log(i+"a");
+    }, [flower]);
     return (
       <TouchableHighlight style={styles.div} underlayColor="#ddd" onPress={()=>handleDetail(flower.id_prd)} >
         <View style={styles.divI}>
