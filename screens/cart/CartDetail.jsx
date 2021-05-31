@@ -134,9 +134,9 @@ const CartDetail = (props) => {
                         <View style={styles.Ritem}>
                             <View style={styles.icon}>
                                  <Icon
-                                color="#333"
+                                color="red"
                                 name="trash-outline"
-                                size={24}
+                                size={25}
                                 type='ionicon'
                                 onPress={() => delitemcart(cartItem.id_cart, cartItem.id_prd)}
                                 />
