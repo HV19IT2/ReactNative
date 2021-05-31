@@ -154,7 +154,6 @@ const CartDetail = (props) => {
                 <View style={styles.cost}>
                    <Text style={styles.tx}>Tổng tiền</Text>
                    <Text style={styles.Txc}>
-                       
                    {Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(total())}
                    </Text>
                 </View>
