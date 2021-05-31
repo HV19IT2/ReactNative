@@ -115,7 +115,8 @@ const styles = StyleSheet.create({
   },
   containBot:{ 
     width: "100%",
-    height: "35%",
+    // height: "35%",
+    // height:"auto",
     backgroundColor:"white",
     borderRadius:8,
     paddingHorizontal:15,
@@ -123,19 +124,19 @@ const styles = StyleSheet.create({
   },
   botC:{
     width: "100%",
-    height: "80%",
+    // height: "80%",
     marginTop:10,
     flexDirection: "row",
     justifyContent: "space-between",
   },
   LbotC:{
     width: "48%",
-    height: "100%",
+    // height: "100%",
     backgroundColor:"white",
   },
   RbotC:{
     width: "48%",
-    height: "100%",
+    // height: "100%",
     backgroundColor:"white",
   },
   tt:{
@@ -151,5 +152,72 @@ const styles = StyleSheet.create({
     color: "grey",
     marginBottom:10,
   },
+  wAit:{
+      backgroundColor:"#f0f0f0",
+      position:"absolute",
+      width: 130,
+      right:10,
+      paddingVertical:5,
+      paddingHorizontal:5,
+      borderRadius:5,
+      borderWidth:2,
+      borderColor:"#ddd",
+      borderStyle:"solid",
+      borderRadius:8,
+  },
+  ing:{
+    backgroundColor:"#5cbbff",
+    position:"absolute",
+    width: 130,
+    right:10,
+    paddingVertical:5,
+    paddingHorizontal:5,
+    borderRadius:5,
+    borderWidth:2,
+    borderColor:"#ddd",
+    borderStyle:"solid",
+    borderRadius:8,
+  },
+  fn:{
+    backgroundColor:"#ff6767",
+    position:"absolute",
+    width: 130,
+    right:10,
+    paddingVertical:5,
+    paddingHorizontal:5,
+    borderRadius:5,
+    borderWidth:2,
+    borderColor:"#ddd",
+    borderStyle:"solid",
+    borderRadius:8,
+  },
+  cancelDH:{
+    marginVertical:10,
+    
+  },
+  btnCancel:{
+    width: "100%",
+    backgroundColor:"#ff6767",
+    paddingHorizontal:10,
+    paddingVertical:5,
+    borderRadius:8
+  },
+  TxCancel:{
+    color: "#fff",
+    textAlign:"center",
+    fontSize:18
+  },
+  btnOK:{
+    width: "100%",
+    backgroundColor:"#5cbbff",
+    paddingHorizontal:10,
+    paddingVertical:5,
+    borderRadius:8
+  },
+  TxOK:{
+    color: "#fff",
+    textAlign:"center",
+    fontSize:18
+  }
 });
 export default styles;

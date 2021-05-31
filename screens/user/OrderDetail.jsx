@@ -1,13 +1,9 @@
 import React from 'react';
 import {useState,useEffect} from 'react';
-import {  Text, TextInput, View, TouchableOpacity, ScrollView, Button, Image  } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {  Text, View, TouchableOpacity, ScrollView, Button, Image, ToastAndroid  } from 'react-native';
 import RootAuth from '../login/RootAuth';
-import axios from 'axios';
-import config from '../../api/config';
 import callApi from '../../api/axios';
 import styles from '../../styles/orderDt';
-import { Tab } from 'react-native-elements';
 import 'intl';
 import 'intl/locale-data/jsonp/vi';
 
@@ -24,6 +20,28 @@ const OrderDetail = (props) => {
         }
      )  
     }, []);
+    const cancelOrder = (id_bill) =>{
+        callApi.get("/cancelOrder_tmp.php?id_bill="+id_bill)
+        .then((response) =>{
+                console.log(response.data.mess);
+                ToastAndroid.show(response.data.mess,ToastAndroid.SHORT);
+                props.navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'User' }],
+                  });
+        })
+    }
+    const updateOD = (id_bill) =>{
+        callApi.get("/updateStaOD_tmp.php?id_bill="+id_bill)
+        .then((response) =>{
+                console.log(response.data.mess);
+                ToastAndroid.show(response.data.mess,ToastAndroid.SHORT);
+                props.navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'User' }],
+                  });
+        })
+    }
     return (
         <View style={styles.container}>
                 <View style={styles.containHead}>
@@ -31,6 +49,30 @@ const OrderDetail = (props) => {
                         <Text style={styles.TxcHinH}>
                             Đơn hàng MVDF{id}
                         </Text>
+                        {(order[0]?.status_delivery == 0 &&
+                            <View
+                                style={styles.wAit}>
+                            <Text style={{ textAlign:"center", fontSize:16, color:"#ccc"}}>
+                                Chờ xác nhận
+                            </Text>
+                        </View> 
+                        )||(order[0]?.status_delivery == 1 &&
+                            <View
+                                style={styles.ing}>
+                            <Text style={{ textAlign:"center", fontSize:16, color:"#fff"}}>
+                                Đang giao hàng
+                            </Text>
+                        </View> 
+                        )||(order[0]?.status_delivery == 2 &&
+                            <View
+                                style={styles.fn}>
+                            <Text style={{ textAlign:"center", fontSize:16, color:"#fff"}}>
+                                Đã giao hàng
+                            </Text>
+                        </View> 
+                        )
+                        }
+                        
                     </View>
                     <View style={styles.cHinC}>
                         <ScrollView style={styles.scrcHinC}>
@@ -124,8 +166,28 @@ const OrderDetail = (props) => {
                         </View>
                     </View>
                 </View>
+                { ( order[0]?.status_delivery == 0 &&
+                    <View style={styles.cancelDH}>
+                            <TouchableOpacity style={styles.btnCancel}
+                            onPress={() => cancelOrder(order[0]?.id_bill) }
+                            >
+                                <Text style={styles.TxCancel}>
+                                    Hủy đơn hàng
+                                </Text>
+                            </TouchableOpacity>
+                    </View>
+                 )||(order[0]?.status_delivery == 1 && 
+                    <View style={styles.cancelDH}>
+                    <TouchableOpacity style={styles.btnOK}
+                    onPress={() => updateOD(order[0]?.id_bill) }
+                    >
+                        <Text style={styles.TxOK}>
+                           Xác nhận đã thanh toán
+                        </Text>
+                    </TouchableOpacity>
+                    </View>
+                )}
         </View>
-        
     );
 }
 
