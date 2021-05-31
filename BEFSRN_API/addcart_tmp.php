@@ -14,9 +14,18 @@ if(!isset($haveid['id_user']))
 		$sql="INSERT INTO `carts`(`id_user`) VALUES (".$id_user.")";
 		$db->statement($sql);
 		$last_id_cart= $db->last_id();
-		if((int)$qtyav["amount_prd"] > 0){
-			$ins_cartdt = "INSERT INTO `cart_details`(`id_cart`, `id_prd`, `prd_qty`) VALUES (".$last_id_cart.",".$id_prd.",'1')";
+		if((int)$qtyav["amount_prd"] > 0 ){
+			$check = (int)$qtyav["amount_prd"]-1;
+			if($check > 0){
+				$ins_cartdt = "INSERT INTO `cart_details`(`id_cart`, `id_prd`, `prd_qty`) VALUES (".$last_id_cart.",".$id_prd.",'1')";
 		    $db->statement($ins_cartdt);
+			}else{
+				http_response_code(404);
+				$array = [
+					"mess"=>"Hết hàng",
+				];
+				echo json_encode($array);
+			}
 		}else{
 			http_response_code(404);
 			$array = [
@@ -29,20 +38,40 @@ if(!isset($haveid['id_user']))
 else
 	{	
 		if((int)$qtyav['amount_prd'] > 0){
+
 			$slprd="SELECT * FROM cart_details where id_prd=".$id_prd." AND id_cart=".$haveid['id_cart']."";
 			$haveidprd=$db->getRow($slprd);
 			if(isset($haveidprd['prd_qty'])){
 				$sl = $haveidprd['prd_qty'];
 			}
 			if(isset($haveidprd['id_prd'])){
-				$sl += 1;
-				$update = "UPDATE `cart_details` 
-						SET `prd_qty`=".$sl." 
-						WHERE `id_cartdt`=".$haveidprd['id_cartdt']."";
-				$db->statement($update);
+				$check = (int)$qtyav["amount_prd"]-$sl;
+				if($check > 0){
+					$sl += 1;
+					$update = "UPDATE `cart_details` 
+							SET `prd_qty`=".$sl." 
+							WHERE `id_cartdt`=".$haveidprd['id_cartdt']."";
+					$db->statement($update);
+				}else{
+					http_response_code(404);
+					$array = [
+						"mess"=>"Hết hàng",
+					];
+					echo json_encode($array);
+				}
 			}else{
-				$ins_cartdt = "INSERT INTO `cart_details`(`id_cart`, `id_prd`, `prd_qty`) VALUES (".$haveid['id_cart'].",".$id_prd.",'1')";
+				$check = (int)$qtyav["amount_prd"]-1;
+				if($check > 0){
+					$ins_cartdt = "INSERT INTO `cart_details`(`id_cart`, `id_prd`, `prd_qty`) VALUES (".$haveid['id_cart'].",".$id_prd.",'1')";
 				$db->statement($ins_cartdt);
+				}else{
+					http_response_code(404);
+					$array = [
+						"mess"=>"Hết hàng",
+					];
+					echo json_encode($array);
+				}
+				
 			}
 		}else{
 			http_response_code(404);
