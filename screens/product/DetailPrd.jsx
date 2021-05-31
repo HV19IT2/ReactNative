@@ -87,6 +87,7 @@ const DetailPrd = (props) => {
             ToastAndroid.show(err.response.data.mess, 
             ToastAndroid.SHORT
             );
+            console.log(err.response.data);
 
         })
             };
@@ -121,8 +122,19 @@ return (
             <View style={styles.leftDiv}>
                 <Text style={styles.label}>Giá: <Text style={styles.priceATx}>{Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(flower.price_prd)}</Text></Text>
                 <Text style={styles.priceTx}>{Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((flower.price_prd*(100-flower.discount_prd))/100)}</Text>
-                <Text style={styles.label}>Số lượng</Text>
-                <Text style={styles.amountTx}>{flower.amount_prd}</Text>
+                {flower.amount_prd > 0 &&
+                    <View>
+                    <Text style={styles.label}>Số lượng</Text>
+                    <Text style={styles.amountTx}>{flower.amount_prd}</Text>
+                    </View>
+                ||
+                    <View>
+                    <Text style={{ 
+                        color:"yellow",
+                        fontSize:30,
+                     }}>Hết hàng</Text>
+                    </View>
+                }
                 <Rating
                 type='custom'
                 style={{
