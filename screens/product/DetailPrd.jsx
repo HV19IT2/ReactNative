@@ -3,7 +3,8 @@ import { Text, View,Image, ScrollView, TouchableOpacity, ToastAndroid, } from 'r
 import { Icon, Divider, Avatar } from 'react-native-elements';
 import { useForm, Controller } from 'react-hook-form';
 import { Textarea } from 'native-base';
-import { Rating } from 'react-native-elements';
+// import { Rating } from 'react-native-elements';
+import { Rating } from 'react-native-ratings';
 import callApi from '../../api/axios';
 import styles from '../../styles/detailPrd';
 import AsyncStorage from '@react-native-async-storage/async-storage';
