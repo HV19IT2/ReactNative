@@ -107,7 +107,7 @@ const DetailPrd = (props) => {
         })  
     }, [user,delcmt,addCmt]);
 return (
-    <ScrollView style={styles.container} >
+    <ScrollView style={styles.container}>
         <View style={styles.headerDiv}>
         {  flower.discount_prd != 0 &&
             <View style={styles.itemDs}>
