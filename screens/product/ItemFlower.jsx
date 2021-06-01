@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
       flexWrap: "wrap",
       margin:"1.25%",
       borderRadius: 10,
-      padding: 2
+      padding: 2,
+      elevation: 3
     },
     divI: {
       width: "100%",

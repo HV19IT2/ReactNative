@@ -24,7 +24,7 @@ const Wait = (props) => {
             {dh?.map((detail,index)=>{
             if(detail.status_delivery=="0")
             return(
-            <TouchableHighlight underlayColor="#ddd" onPress={() => handleDetail(detail.id_bill) } key={index}>
+            <TouchableHighlight underlayColor="null" onPress={() => handleDetail(detail.id_bill) } key={index}>
                 <View style={styles.divPrdItem} >
                     <Text style={styles.code}>MVDF{detail.id_bill}</Text>
                     <View style={styles.Citem}>

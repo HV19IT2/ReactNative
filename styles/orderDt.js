@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     height: "100%",
     paddingHorizontal:10,
     paddingVertical:10,
-    backgroundColor:"#ddd",
+    backgroundColor:"#f0f0f0",
   },
   containHead:{ 
     width: "100%",
@@ -200,7 +200,8 @@ const styles = StyleSheet.create({
     backgroundColor:"#ff6767",
     paddingHorizontal:10,
     paddingVertical:5,
-    borderRadius:8
+    borderRadius:8,
+    elevation: 2,
   },
   TxCancel:{
     color: "#fff",
@@ -212,7 +213,8 @@ const styles = StyleSheet.create({
     backgroundColor:"#5cbbff",
     paddingHorizontal:10,
     paddingVertical:5,
-    borderRadius:8
+    borderRadius:8,
+    elevation: 2,
   },
   TxOK:{
     color: "#fff",

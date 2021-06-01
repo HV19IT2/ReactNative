@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
         paddingHorizontal:10,
         paddingVertical:10,
         borderRadius:10,
+        elevation: 2,
     },
     div2S:{
         width: "100%",
@@ -84,6 +85,7 @@ const styles = StyleSheet.create({
         borderRadius:10,
         justifyContent:"space-between",
         flexDirection: "row",
+        elevation: 2,
     },
     
     Litem:{
@@ -136,7 +138,9 @@ const styles = StyleSheet.create({
         backgroundColor:"white",
         flexDirection:"row",
         // justifyContent: "space-between"
-        alignItems: "center"
+        alignItems: "center",
+        elevation: 2,
+
     },
     tx:{
         width: "48%",
@@ -156,13 +160,15 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "35%",
         backgroundColor:"white",
+        elevation: 4,
+
     },
     btnP:{
         width: "100%",
         height: "100%",
         backgroundColor:"#77a088",
         borderRadius: 10,
-        justifyContent: "center"
+        justifyContent: "center",
     },
     TxP:{
         fontSize:22,

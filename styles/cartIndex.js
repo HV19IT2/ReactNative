@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
     },
     divPrd: {
         width: "100%",
-        paddingHorizontal:5,
-        paddingVertical:5,
+        // paddingHorizontal:5,
+        // paddingVertical:5,
         height: "80%",
         position:"relative",
         display: "flex",
@@ -21,15 +21,16 @@ const styles = StyleSheet.create({
         paddingBottom:10
     },
     divPrdItem: {
-        width: "100%",
+        width: "97%",
         height:150,
         backgroundColor:"white",
         display:"flex",
         position:"relative",
         marginBottom:10,
-        // marginVertical:10,
+        elevation: 5,
         borderRadius: 20,
         paddingHorizontal:10,
+        marginHorizontal:5,
         paddingVertical:10,
         flexDirection: "row",
         alignItems: "center",
@@ -99,8 +100,8 @@ const styles = StyleSheet.create({
         height: "60%",
         backgroundColor:"white",
         flexDirection:"row",
-        alignItems: "center"
-
+        alignItems: "center",
+        elevation: 2,
     },
     tx:{
         width: "48%",
@@ -120,14 +121,14 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "35%",
         backgroundColor:"white",
+        elevation: 4,
     },
     btnP:{
         width: "100%",
         height: "100%",
         backgroundColor:"#77a088",
         borderRadius: 10,
-        justifyContent: "center"
-
+        justifyContent: "center",
     },
     TxP:{
         fontSize:22,
