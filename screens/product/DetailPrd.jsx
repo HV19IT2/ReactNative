@@ -3,7 +3,6 @@ import { Text, View,Image, ScrollView, TouchableOpacity, ToastAndroid, } from 'r
 import { Icon, Divider, Avatar } from 'react-native-elements';
 import { useForm, Controller } from 'react-hook-form';
 import { Textarea } from 'native-base';
-// import { Rating } from 'react-native-elements';
 import { Rating } from 'react-native-ratings';
 import callApi from '../../api/axios';
 import styles from '../../styles/detailPrd';
@@ -12,6 +11,7 @@ import { LogBox } from 'react-native';
 import 'intl';
 import 'intl/locale-data/jsonp/vi';
 const DetailPrd = (props) => {
+    const {reset, handleSubmit, control} = useForm();
     const route =props.route
     const id = route.params.id
     const navi = props.navigation;
@@ -23,7 +23,6 @@ const DetailPrd = (props) => {
     const [vote, setvote] = useState(2.5);
     const [star, setstar] =useState({});
     const [available, setavailable] = useState(false);
-    const { handleSubmit, control } = useForm();
     LogBox.ignoreLogs(['Warning: ...']);
     LogBox.ignoreAllLogs();
     useEffect(() => {
@@ -98,12 +97,14 @@ const DetailPrd = (props) => {
         callApi.post("/addcmt_tmp.php",{id, vote, data})
         .then(
             res => {
+                reset();
                 setaddCmt(addCmt + 1);
             })
         }      
     useEffect(() => {
         callApi.get("/comment_tmp.php?id_prd="+id).then((response) =>{
             setcmts(response.data)
+            // console.log(response.data);
         })  
     }, [user,delcmt,addCmt]);
 return (
@@ -192,14 +193,15 @@ return (
                     </View>
                     <Controller
                         control={control}
-                        render={({field: { onChange, onBlur, value }}) => (
+                        render={({
+                            field: { onChange, onBlur, value },
+                        }) => (
                                 <Textarea
                                     style={styles.input}
                                     placeholder="Nhập bình luận ..."
-                                    keyboardType="default"
-                                    value={value}
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
+                                    value={value}
                                 />
                                 )}
                         name="cmt_dt"
@@ -221,12 +223,10 @@ return (
                     style={{ 
                         backgroundColor: "#4e9f65",
                         borderRadius: 7,
-                        // paddingVertical:5,
                         width: "30%",
                         marginLeft:"40%"
                         }}
                     onPress={handleSubmit(addComment)} 
-                   // onPress={()=> reset({ cmt_dt: " " })}
                     >
                     <Icon
                         name='sc-telegram'
