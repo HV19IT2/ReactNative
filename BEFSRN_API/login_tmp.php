@@ -39,7 +39,7 @@ if(empty($username) || empty($password)){
            if($db->numrow("SELECT * from accounts where username='".$username."' and password='".md5($password)."'"))
           {
             $data = $db->getRow("SELECT * from accounts where username='".$username."'");
-              setcookie("auth",$data['id_user'] , time() + 3600*7, "/");
+              setcookie("auth",$data['id_user'] , time() + (86400 * 30), "/");
               http_response_code(200);
               header('Content-type: application/json');
               $array = [
