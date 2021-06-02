@@ -16,7 +16,7 @@ $sql="SELECT comments.*,accounts.username
 FROM comments
 INNER JOIN accounts
 ON comments.id_user=accounts.id_user
-WHERE id_prd =".$_GET['id_prd']." and id_prcmt = 0";
+WHERE id_prd =".$_GET['id_prd']." AND id_prcmt = 0 " ;
 
  $cmt_parent = $db->getData($sql); 
  $arr = array();
@@ -29,10 +29,8 @@ WHERE id_prd =".$_GET['id_prd']." and id_prcmt = 0";
         ON comments.id_user=accounts.id_user
         WHERE id_prcmt =".$id_prcmt."";
     $arr[$id_prcmt]['cmt_child'] = $db->getData($sql1); 
- }
- header('Content-Type: application/json');
- // echo json_encode(["flower"=> $db->getData($sql)]);
+}
+header('Content-Type: application/json');
+ rsort($arr);
  echo json_encode($arr);
- // echo "from PHP";
-    
  ?>

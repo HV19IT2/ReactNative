@@ -7,7 +7,7 @@ import Account from '../user/Account';
 import callApi from '../../api/axios';
 const Signin = (props) => {
     const [auth, setauth] = useState(false);
-    const { handleSubmit, control } = useForm();
+    const { handleSubmit, control} = useForm();
         useEffect(() => {
             async function checkUserSignedIn(){
                 try {
