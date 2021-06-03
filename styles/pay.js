@@ -166,9 +166,12 @@ const styles = StyleSheet.create({
     btnP:{
         width: "100%",
         height: "100%",
-        backgroundColor:"#77a088",
+        backgroundColor:"#4e9f65",
         borderRadius: 10,
         justifyContent: "center",
+        borderStyle:"solid",
+        borderWidth:1,
+        borderColor:"white",
     },
     TxP:{
         fontSize:22,
